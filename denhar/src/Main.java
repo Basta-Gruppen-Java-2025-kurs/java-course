@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner choice = new Scanner(System.in);
         boolean goOn = true;
+        BankAccount account = new BankAccount();
         while (goOn) {
             System.out.println("""
                     Please input task and parameters. The following are available:
@@ -12,6 +13,7 @@ public class Main {
                     - "points" <double> - return a letter rating for given points (0-100)
                     - "calc" <first> <op> <second> - return a result of an arithmetic operation op (+-*/) between 2 numbers
                     - "temp" ("F-C" or "C-F") <temperature> - convert given temperature from Fahrenheit to Celsius or vice versa and give recommendation
+                    - "bank" - interact with your bank account
                     - "exit" or "quit" - end the interaction
                     """);
             switch (choice.next()) {
@@ -21,7 +23,7 @@ public class Main {
                         System.out.println("Age category: " + ageCategory(age));
                     } catch (Exception e) {
                         choice.nextLine();
-                        System.out.println("Error processing input age: " + e.getMessage());;
+                        System.out.println("Error processing input age: " + e);
                     }
                     break;
                 case "points":
@@ -30,7 +32,7 @@ public class Main {
                         System.out.println("Rating: " + pointsToLetter(points));
                     } catch (Exception e) {
                         choice.nextLine();
-                        System.out.println("Error processing points: " + e.getMessage());
+                        System.out.println("Error processing points: " + e);
                     }
                     break;
                 case "calc":
@@ -42,7 +44,7 @@ public class Main {
                         System.out.println("Result: " + calculate2(first, op, second));
                     } catch (Exception e) {
                         choice.nextLine();
-                        System.out.println("Error calculating: " + e.getMessage());
+                        System.out.println("Error calculating: " + e);
                     }
                     break;
                 case "temp":
@@ -62,8 +64,11 @@ public class Main {
                         System.out.println("Recommendation: " + ta.recommendation + "°");
                     } catch (Exception e) {
                         choice.nextLine();
-                        System.out.println("Error converting temperature: " + e.getMessage());
+                        System.out.println("Error converting temperature: " + e);
                     }
+                    break;
+                case "bank":
+                    account.interact();
                     break;
                 case "exit", "quit":
                     goOn = false;
@@ -118,21 +123,16 @@ public class Main {
      * @param first first number as <b>double</b>
      * @param op operation (+,-,*,/) as <b>char</b>
      * @param second second number as <b>double</b>
-     * @return
+     * @return the result of operation as <b>double</b>
      */
     static double calculate2(double first, char op, double second) {
-        switch(op) {
-            case '+' :
-                return first + second;
-            case '-' :
-                return first - second;
-            case '*' :
-                return first * second;
-            case '/' :
-                return first / second;
-            default:
-                throw new RuntimeException("Unknown operation");
-        }
+        return switch (op) {
+            case '+' -> first + second;
+            case '-' -> first - second;
+            case '*' -> first * second;
+            case '/' -> first / second;
+            default -> throw new RuntimeException("Unknown operation");
+        };
     }
 
     /**
