@@ -11,6 +11,7 @@ public class Main {
                     - "age" <int> - return the age group of a person of a given age
                     - "points" <double> - return a letter rating for given points (0-100)
                     - "calc" <first> <op> <second> - return a result of an arithmetic operation op (+-*/) between 2 numbers
+                    - "temp" ("F-C" or "C-F") <temperature> - convert given temperature from Fahrenheit to Celsius or vice versa and give recommendation
                     - "exit" or "quit" - end the interaction
                     """);
             switch (choice.next()) {
@@ -42,6 +43,26 @@ public class Main {
                     } catch (Exception e) {
                         choice.nextLine();
                         System.out.println("Error calculating: " + e.getMessage());
+                    }
+                    break;
+                case "temp":
+                    try {
+                        String conversionVariant = choice.next();
+                        double temp = choice.nextDouble();
+                        TemperatureAdvice ta;
+                        if(conversionVariant.equals("F-C")) {
+                            ta = convertTemperature(temp, false);
+                        } else if (conversionVariant.equals("C-F")) {
+                            ta = convertTemperature(temp, true);
+                        } else {
+                            throw new RuntimeException("Wrong conversion variant.");
+                        }
+                        System.out.println("Celsius: " + ta.celsius + "°");
+                        System.out.println("Fahrenheit: " + ta.fahrenheit + "°");
+                        System.out.println("Recommendation: " + ta.recommendation + "°");
+                    } catch (Exception e) {
+                        choice.nextLine();
+                        System.out.println("Error converting temperature: " + e.getMessage());
                     }
                     break;
                 case "exit", "quit":
@@ -114,4 +135,44 @@ public class Main {
         }
     }
 
+    /**
+     * Takes in temperature and converts it to Celsius or to Fahrenheit and gives a recommendation
+     * @param temperature temperature value in degrees
+     * @param isCelsius if true, convert Celsius to Fahrenheit, otherwise convert Fahrenheit to Celsius
+     * @return a value of class {@link TemperatureAdvice TemperatureAdvice}
+     */
+    static TemperatureAdvice convertTemperature (double temperature, boolean isCelsius) {
+        TemperatureAdvice result = new TemperatureAdvice();
+        if (isCelsius) {
+            result.celsius = temperature;
+            result.fahrenheit = (temperature * 1.8) + 32;
+        } else {
+            result.fahrenheit = temperature;
+            result.celsius = (temperature - 32) * 0.5556;
+        }
+        if (result.celsius < 0) {
+            result.recommendation = "Mycket kallt - ta på dig vinterkläder!";
+        } else if (result.celsius <= 10) {
+            result.recommendation = "Kallt - jacka behövs";
+        } else if (result.celsius <= 20) {
+            result.recommendation = "Svalt - lätt jacka";
+        } else if (result.celsius <= 30) {
+            result.recommendation = "Behagligt - t-shirt räcker";
+        } else {
+            result.recommendation =  "Varmt - shorts och linne!";
+        }
+        return result;
+    }
+}
+
+/**
+ * Contains 3 values:<br/>
+ * <b>double</b> <tt>celsius</tt> &mdash; temperature in Celsius<br/>
+ * <b>double</b> <tt>fahrenheit</tt> &mdash; temperature in Fahrenheit<br/>
+ * <b>String</b> <tt>recommendation</tt> &mdash; a recommendation for clothes at this temperature
+ */
+class TemperatureAdvice {
+    double celsius;
+    double fahrenheit;
+    String recommendation;
 }
