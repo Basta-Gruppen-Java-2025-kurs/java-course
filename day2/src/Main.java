@@ -17,7 +17,7 @@ public class Main {
                     """);
             switch (choice.next()) {
                 case "temp":
-                    System.out.println("Not implemented yet");
+                    TemperaturAnalys.run();
                     break;
                 case "student":
                     System.out.println("Not implemented yet");
