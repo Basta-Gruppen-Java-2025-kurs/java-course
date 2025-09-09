@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -119,7 +118,6 @@ public class Main {
                     break;
                 case "tallek":
                     NumberGame();
-                    System.out.println("Not implemented yet");
                     break;
                 case "exit", "quit":
                     goOn = false;
