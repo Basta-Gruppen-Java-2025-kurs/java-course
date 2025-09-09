@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class TemperaturAnalys {
     static double[] weekTemperature = new double[7];
-    static String[] weekDays = {"måndag", "tisdag", "onsdag", "torsdag", "fredag", "lördag", "söndag"};
     static double medel, högsta, lägsta, sum;
     static int högstaDag, lägstaDag, dagarÖver20;
     public static void run() {
@@ -13,7 +12,7 @@ public class TemperaturAnalys {
             boolean inputCorrect = false;
             do {
                 try {
-                    System.out.println("Vad är temperaturen på " + weekDays[i] + "?");
+                    System.out.println("Vad är temperaturen på " + Week.days[i] + "?");
                     double temp = weekTemperature[i] = sc.nextDouble();
                     inputCorrect = true;
                     if (i == 0) {
@@ -43,8 +42,8 @@ public class TemperaturAnalys {
         }
         medel = sum / weekTemperature.length;
         System.out.println("Medel temperatur i vecka: " + medel + "°C.");
-        System.out.println("Högsta temperatur: " + högsta + "°C, på " + weekDays[högstaDag] + ".");
-        System.out.println("Lägsta temperatur: " + lägsta + "°C, på " + weekDays[lägstaDag] + ".");
+        System.out.println("Högsta temperatur: " + högsta + "°C, på " + Week.days[högstaDag] + ".");
+        System.out.println("Lägsta temperatur: " + lägsta + "°C, på " + Week.days[lägstaDag] + ".");
         System.out.println("Antal dagar över 20°C: " + dagarÖver20);
         System.out.println("Temperatur graf:");
         int zeroOffset = lägsta < 0 ? (int)(-lägsta/2) : 0;

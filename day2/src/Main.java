@@ -25,7 +25,7 @@ public class Main {
                     System.out.println("Not implemented yet");
                     break;
                 case "utgifter":
-                    System.out.println("Not implemented yet");
+                    VeckansUtgifter.run();
                     break;
                 case "priser":
                     System.out.println("Not implemented yet");
