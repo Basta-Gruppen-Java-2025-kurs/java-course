@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class TemperaturAnalys {
     static double[] weekTemperature = new double[7];
     static String[] weekDays = {"måndag", "tisdag", "onsdag", "torsdag", "fredag", "lördag", "söndag"};
-    static double medel, högsta, lägsta, dagarÖver20, sum;
-    static int högstaDag, lägstaDag;
+    static double medel, högsta, lägsta, sum;
+    static int högstaDag, lägstaDag, dagarÖver20;
     public static void run() {
         Scanner sc = new Scanner(System.in);
         dagarÖver20 = 0;
