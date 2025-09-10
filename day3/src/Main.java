@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -51,8 +52,25 @@ public class Main {
                 System.out.println("\nAbove mediuim score:");
                 reachedMedium = true;
             }
-            System.out.println(score.name + " - " + score.score + " (" + score.rating() + ")");
+            score.printWithScore();
         }
+        Scanner input = new Scanner(System.in);
+        while(true) {
+            System.out.println("\nSearch for student (empty line to quit):");
+            String request = input.nextLine();
+            if (request.length() < 1) {
+                break;
+            }
+            List<StudentScore> found = scores.stream().filter(s -> s.name.contains(request)).collect(Collectors.toList());
+            if (found.size() < 1) {
+                System.out.println("No matching names found");
+            } else {
+                for (StudentScore score:found) {
+                    score.printWithScore();
+                }
+            }
+        }
+        System.out.println("Good bye.");
     }
 }
 
@@ -62,5 +80,9 @@ class StudentScore {
 
     char rating() {
         return score <= 40 ? 'F' : score <= 50 ? 'E' : score <= 60 ? 'D' : score <= 70 ? 'C' : score <= 80 ? 'B' : 'A';
+    }
+
+    void printWithScore() {
+        System.out.println(name + " - " + score + " (" + rating() + ")");
     }
 }
