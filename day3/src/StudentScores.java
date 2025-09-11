@@ -5,12 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        StudentScores.run();
-        /*
+public class StudentScores {
+    public static void run() {
         File source = new File("src/StudentScores.txt");
         Scanner sc = null;
 
@@ -26,12 +22,12 @@ public class Main {
         int studentCount = sc.nextInt();
         sc.nextLine();
         List<StudentScore> scores = new ArrayList<>();
-        for (int i = 0; i<studentCount; i++) {
+        for (int i = 0; i < studentCount; i++) {
             StudentScore nextScore = new StudentScore();
             nextScore.name = sc.nextLine();
             scores.add(nextScore);
         }
-        for (StudentScore s: scores) {
+        for (StudentScore s : scores) {
             double score = sc.nextDouble();
             sum += score;
             s.score = score;
@@ -42,7 +38,7 @@ public class Main {
                 top = s;
             }
         }
-        double mediumScore = sum/studentCount;
+        double mediumScore = sum / studentCount;
         System.out.println("Average score: " + mediumScore);
         System.out.println("Best score: " + top.name + " - " + top.score);
         System.out.println("Worst score: " + bottom.name + " - " + bottom.score);
@@ -57,7 +53,7 @@ public class Main {
             score.printWithScore();
         }
         Scanner input = new Scanner(System.in);
-        while(true) {
+        while (true) {
             System.out.println("\nSearch for student (empty line to quit):");
             String request = input.nextLine();
             if (request.length() < 1) {
@@ -67,11 +63,24 @@ public class Main {
             if (found.size() < 1) {
                 System.out.println("No matching names found");
             } else {
-                for (StudentScore score:found) {
+                for (StudentScore score : found) {
                     score.printWithScore();
                 }
             }
         }
-        System.out.println("Good bye.");*/
+        System.out.println("Good bye.");
+    }
+}
+
+class StudentScore {
+    String name;
+    double score;
+
+    char rating() {
+        return score <= 40 ? 'F' : score <= 50 ? 'E' : score <= 60 ? 'D' : score <= 70 ? 'C' : score <= 80 ? 'B' : 'A';
+    }
+
+    void printWithScore() {
+        System.out.println(name + " - " + score + " (" + rating() + ")");
     }
 }
